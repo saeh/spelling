@@ -78,3 +78,25 @@ h1 {
     font-weight: bold;
     color: #4CAF50;
 }
+
+.leaderboard {
+    margin-top: 20px;
+    text-align: left;
+}
+
+.leaderboard ol {
+    list-style-type: decimal;
+    padding-left: 20px;
+}
+
+.leaderboard li {
+    background: #f9f9f9;
+    margin: 5px 0;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.name {
+    font-weight: bold;
+    color: #4CAF50;
+}

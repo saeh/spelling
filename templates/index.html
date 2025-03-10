@@ -8,30 +8,11 @@
 </head>
 <body>
     <div class="container">
-        <h1>Spelling Game</h1>
-        <div class="scoreboard">
-            <p>Your Score: <span class="score">{{ score }}</span></p>
-            <p>Correct Percentage: <span class="percentage">{{ "%.2f"|format(correct_percentage) }}%</span></p>
-        </div>
-        <div class="history">
-            <h2>Correct Words:</h2>
-            <ul>
-                {% for word in correct_words %}
-                    <li>{{ word }}</li>
-                {% endfor %}
-            </ul>
-            <h2>Wrong Words:</h2>
-            <ul>
-                {% for word in wrong_words %}
-                    <li>{{ word }}</li>
-                {% endfor %}
-            </ul>
-        </div>
-        <form action="{{ url_for('play') }}" method="POST">
+        <h1>Welcome to the Spelling Game!</h1>
+        <form action="{{ url_for('index') }}" method="POST">
+            <label for="name">Enter your name:</label>
+            <input type="text" id="name" name="name" required>
             <button type="submit" class="btn">Start Game</button>
-        </form>
-        <form action="{{ url_for('reset') }}" method="POST">
-            <button type="submit" class="btn reset">Reset Score</button>
         </form>
     </div>
 </body>
