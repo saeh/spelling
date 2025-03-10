@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, send_from_directory, session
+from flask import Flask, render_template, request, redirect, url_for, send_from_directory, session, jsonify
 from gtts import gTTS
 import os
 import random
@@ -60,6 +60,13 @@ def index():
         session["name"] = request.form.get("name")
         return redirect(url_for("game"))
     return render_template("index.html")
+
+@app.route("/set_name", methods=["POST"])
+def set_name():
+    """Set the user's name in the session from localStorage."""
+    data = request.get_json()
+    session["name"] = data.get("name")
+    return jsonify({"status": "success"}), 200
 
 @app.route("/game")
 def game():

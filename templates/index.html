@@ -5,11 +5,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spelling Game</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script>
+        // Check if a user_name exists in localStorage
+        window.onload = function() {
+            const userName = localStorage.getItem("user_name");
+            if (userName) {
+                // If user_name exists, send it to the server and redirect to the game screen
+                fetch("/set_name", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ name: userName }),
+                })
+                .then(response => {
+                    if (response.ok) {
+                        window.location.href = "/game"; // Redirect to the game screen
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+            }
+        };
+
+        function saveName() {
+            const nameInput = document.getElementById("name");
+            const userName = nameInput.value.trim();
+            if (userName) {
+                // Save the user_name to localStorage
+                localStorage.setItem("user_name", userName);
+            }
+        }
+    </script>
 </head>
 <body>
     <div class="container">
         <h1>Welcome to the Spelling Game!</h1>
-        <form action="{{ url_for('index') }}" method="POST">
+        <form action="{{ url_for('index') }}" method="POST" onsubmit="saveName()">
             <label for="name">Enter your name:</label>
             <input type="text" id="name" name="name" required>
             <button type="submit" class="btn">Start Game</button>
