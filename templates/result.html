@@ -4,26 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-    <h1>{{ result }}</h1>
-    <p>The word was: {{ word }}</p>
-    {% if user_input %}
-        <p>You spelled: {{ user_input }}</p>
-    {% endif %}
-    <p>Your Score: {{ score }}</p>
-    <h2>Correct Words:</h2>
-    <ul>
-        {% for word in correct_words %}
-            <li>{{ word }}</li>
-        {% endfor %}
-    </ul>
-    <h2>Wrong Words:</h2>
-    <ul>
-        {% for word in wrong_words %}
-            <li>{{ word }}</li>
-        {% endfor %}
-    </ul>
-    <a href="{{ url_for('index') }}">Play Again</a>
+    <div class="container">
+        <h1>{{ result }}</h1>
+        <p>The word was: <span class="word">{{ word }}</span></p>
+        {% if user_input %}
+            <p>You spelled: <span class="user-input">{{ user_input }}</span></p>
+        {% endif %}
+        <div class="scoreboard">
+            <p>Your Score: <span class="score">{{ score }}</span></p>
+            <p>Correct Percentage: <span class="percentage">{{ "%.2f"|format(correct_percentage) }}%</span></p>
+        </div>
+        <div class="history">
+            <h2>Correct Words:</h2>
+            <ul>
+                {% for word in correct_words %}
+                    <li>{{ word }}</li>
+                {% endfor %}
+            </ul>
+            <h2>Wrong Words:</h2>
+            <ul>
+                {% for word in wrong_words %}
+                    <li>{{ word }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <a href="{{ url_for('index') }}" class="btn">Play Again</a>
+    </div>
 </body>
 </html>

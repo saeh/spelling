@@ -4,27 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spelling Game</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-    <h1>Spelling Game</h1>
-    <p>Your Score: {{ score }}</p>
-    <h2>Correct Words:</h2>
-    <ul>
-        {% for word in correct_words %}
-            <li>{{ word }}</li>
-        {% endfor %}
-    </ul>
-    <h2>Wrong Words:</h2>
-    <ul>
-        {% for word in wrong_words %}
-            <li>{{ word }}</li>
-        {% endfor %}
-    </ul>
-    <form action="{{ url_for('play') }}" method="POST">
-        <button type="submit">Start Game</button>
-    </form>
-    <form action="{{ url_for('reset') }}" method="POST">
-        <button type="submit">Reset Score</button>
-    </form>
+    <div class="container">
+        <h1>Spelling Game</h1>
+        <div class="scoreboard">
+            <p>Your Score: <span class="score">{{ score }}</span></p>
+            <p>Correct Percentage: <span class="percentage">{{ "%.2f"|format(correct_percentage) }}%</span></p>
+        </div>
+        <div class="history">
+            <h2>Correct Words:</h2>
+            <ul>
+                {% for word in correct_words %}
+                    <li>{{ word }}</li>
+                {% endfor %}
+            </ul>
+            <h2>Wrong Words:</h2>
+            <ul>
+                {% for word in wrong_words %}
+                    <li>{{ word }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <form action="{{ url_for('play') }}" method="POST">
+            <button type="submit" class="btn">Start Game</button>
+        </form>
+        <form action="{{ url_for('reset') }}" method="POST">
+            <button type="submit" class="btn reset">Reset Score</button>
+        </form>
+    </div>
 </body>
 </html>
