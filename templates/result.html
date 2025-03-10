@@ -17,14 +17,16 @@
             <p>Your Score: <span class="score">{{ score }}</span></p>
             <p>Correct Percentage: <span class="percentage">{{ "%.2f"|format(correct_percentage) }}%</span></p>
         </div>
+        <h2>Correct Words:</h2>
         <div class="history">
-            <h2>Correct Words:</h2>
             <ul>
                 {% for word in correct_words %}
                     <li>{{ word }}</li>
                 {% endfor %}
             </ul>
-            <h2>Wrong Words:</h2>
+        </div>
+        <h2>Wrong Words:</h2>
+        <div class="history">
             <ul>
                 {% for word in wrong_words %}
                     <li>{{ word }}</li>
