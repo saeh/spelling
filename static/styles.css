@@ -100,3 +100,27 @@ h1 {
     font-weight: bold;
     color: #4CAF50;
 }
+
+.history {
+    text-align: left;
+    margin: 20px 0;
+    max-height: 150px; /* Set a fixed height for the history section */
+    overflow-y: auto; /* Add a vertical scrollbar if content overflows */
+    border: 1px solid #ddd; /* Optional: Add a border for better visibility */
+    border-radius: 5px; /* Optional: Add rounded corners */
+    padding: 10px; /* Optional: Add padding for better spacing */
+    background: #f9f9f9; /* Optional: Add a background color */
+}
+
+.history ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0; /* Remove default margin */
+}
+
+.history li {
+    background: #f1f1f1; /* Light background for list items */
+    margin: 5px 0;
+    padding: 10px;
+    border-radius: 5px;
+}
