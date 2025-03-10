@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Play Word</title>
+</head>
+<body>
+    <h1>Spell the Word</h1>
+    <audio controls autoplay>
+        <source src="{{ url_for('serve_audio', filename=audio_file.split('/')[-1]) }}" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    <form action="{{ url_for('check') }}" method="POST">
+        <input type="hidden" name="word" value="{{ word }}">
+        <input type="hidden" name="audio_file" value="{{ audio_file }}">
+        <label for="user_input">Spell the word:</label>
+        <input type="text" id="user_input" name="user_input" required>
+        <button type="submit">Submit</button>
+    </form>
+    {% if replay %}
+        <p>Replaying the word...</p>
+    {% endif %}
+</body>
+</html>
