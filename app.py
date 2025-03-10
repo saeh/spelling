@@ -13,6 +13,14 @@ app.permanent_session_lifetime = timedelta(minutes=30)  # Session expires after 
 if not os.path.exists(app.config["UPLOAD_FOLDER"]):
     os.makedirs(app.config["UPLOAD_FOLDER"])
 
+
+def calculate_correct_percentage(correct_words, wrong_words):
+    total_words = len(correct_words) + len(wrong_words)
+    if total_words == 0:
+        return 0
+    return (len(correct_words) / total_words) * 100
+
+
 def load_word_list() -> list[str]:
     """Load the word list from file."""
     with open("words.txt", "r") as fp:
@@ -34,7 +42,8 @@ def index():
         session["score"] = 0
         session["correct_words"] = []
         session["wrong_words"] = []
-    return render_template("index.html", score=session["score"], correct_words=session["correct_words"], wrong_words=session["wrong_words"])
+    correct_percentage = calculate_correct_percentage(session["correct_words"], session["wrong_words"])
+    return render_template("index.html", score=session["score"], correct_words=session["correct_words"], wrong_words=session["wrong_words"], correct_percentage=correct_percentage)
 
 @app.route("/play", methods=["POST"])
 def play():
@@ -58,12 +67,15 @@ def check():
         session["score"] += 1
         session["correct_words"].append(word)
         session.modified = True  # Ensure the session is saved
-        return render_template("result.html", result="Correct!", word=word, score=session["score"], correct_words=session["correct_words"], wrong_words=session["wrong_words"])
     else:
         # Update session data for wrong answer
         session["wrong_words"].append(word)
         session.modified = True  # Ensure the session is saved
-        return render_template("result.html", result="Wrong!", word=word, user_input=user_input, score=session["score"], correct_words=session["correct_words"], wrong_words=session["wrong_words"])
+
+    # Calculate correct percentage
+    correct_percentage = calculate_correct_percentage(session["correct_words"], session["wrong_words"])
+    return render_template("result.html", result="Correct!" if user_input == word else "Wrong!", word=word, user_input=user_input, score=session["score"], correct_words=session["correct_words"], wrong_words=session["wrong_words"], correct_percentage=correct_percentage)
+
 
 @app.route("/reset", methods=["POST"])
 def reset():
