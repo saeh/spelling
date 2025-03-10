@@ -7,8 +7,24 @@
 </head>
 <body>
     <h1>Spelling Game</h1>
+    <p>Your Score: {{ score }}</p>
+    <h2>Correct Words:</h2>
+    <ul>
+        {% for word in correct_words %}
+            <li>{{ word }}</li>
+        {% endfor %}
+    </ul>
+    <h2>Wrong Words:</h2>
+    <ul>
+        {% for word in wrong_words %}
+            <li>{{ word }}</li>
+        {% endfor %}
+    </ul>
     <form action="{{ url_for('play') }}" method="POST">
         <button type="submit">Start Game</button>
+    </form>
+    <form action="{{ url_for('reset') }}" method="POST">
+        <button type="submit">Reset Score</button>
     </form>
 </body>
 </html>
